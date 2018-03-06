@@ -50,12 +50,9 @@ function getDataFromApi(begin_date, end_date, callback){
      console.log('handleApiResults ran');
      const allPages = data.response.docs;
      console.log(allPages);
-     const pageOne = allPages.map(function(page) 
-        {  
-            console.log(page);
-            $('.mdl-grid.top-row').append(page.headline.main);
-            return 
-            `<div class="mdl-cell mdl-cell--2-col">
+     const renderResults = allPages.map(function(page) 
+        { 
+            return `<div class="mdl-cell mdl-cell--2-col">
                 <div class="demo-card-square mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title mdl-card--expand">
                         <h2 class="mdl-card__title-text">${page.headline.main}</h2>
@@ -70,15 +67,14 @@ function getDataFromApi(begin_date, end_date, callback){
                     </div>
                 </div>
             </div>`;
-            /*`<div class="article">
+            `<div class="article">
             <a href=${page.web_url}> ${page.headline.main}</a>
             ${page.multimedia.length > 1 ? `<img src='http://www.nytimes.com/${page.multimedia[1].url}'>` : ''}
             <p>${page.snippet}</p>
-            </div>`; */
+            </div>`; 
 
         });
-        console.log(pageOne);
-        $('.top-row').html(pageOne);
+        $('.top-row').html(renderResults);
      }      
 
 
