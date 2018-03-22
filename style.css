@@ -46,3 +46,7 @@ h1 {
 input {
   min-height: 33px;
 }
+
+button {
+  background-color: rgb(180, 46, 92);
+}

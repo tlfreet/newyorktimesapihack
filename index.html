@@ -12,19 +12,19 @@
         <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     </head>
     <body>
-        <header role="banner"><img src="New-York-Times-Logo2.png"> Machine</header>
+        <header role="banner"><img src="New-York-Times-Logo2.png" alt="New-York-Times-Logo" role="marquee"> Machine</header>
        <main>
         <form class="submit-form" id="submit-form">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <div class="label-name">Choose a date</div>
+                <label class="label-name" for="date">Choose a date</label>
                 <input class="mdl-textfield__input" type="date" id="date">
                 <span class="mdl-textfield__error">This is note a date</span>
             </div>    
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                <div class="label-name">News Desk Topic</div>
+                <label class="label-name" for="sample3">News Desk Topic</label>
                 <input type="text" value="" class="mdl-textfield__input" id="sample3" readonly>
                 <input type="hidden" value="" name="sample3">
-                <ul for="sample3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="topic">
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" id="topic">
                     <li class="mdl-menu__item" data-val="Politics">Politics</li>
                     <li class="mdl-menu__item" data-val="Food">Food</li>
                     <li class="mdl-menu__item" data-val="Arts & Leisure">Arts & Leisure</li>
