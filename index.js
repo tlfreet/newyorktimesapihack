@@ -4,6 +4,7 @@ let topic = ''
  function inputSearchTerms (){
      $('#topic').on('click', 'li.mdl-menu__item', event => {
         topic = $(event.currentTarget).closest('li').attr('data-val');
+        $('#sample3').val(topic);
      })
      $('#submit-form').submit(function(event) {
         event.preventDefault();
@@ -40,7 +41,13 @@ function getDataFromApi(begin_date, end_date, callback){
          url: url,
          method: 'GET',
     }).done(function(result) {
+        let doc = result.response.docs
+        if(doc.length !== 0){
         callback(result);
+    }
+    else{
+        $('.trial').html(`<h1>Sorry, there don't seem to be articles for that search! Feel free to try again<h1>`);
+    }
     }).fail(function(err) {
         throw err;
         });
@@ -52,13 +59,13 @@ function getDataFromApi(begin_date, end_date, callback){
      console.log(allPages);
      const renderResults = allPages.map(function(page) 
         { 
-            return `<div class="mdl-cell mdl-cell--2-col">
+            return `<div class="mdl-cell mdl-cell--3-col">
                 <div class="demo-card-square mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title mdl-card--expand">
                         <h2 class="mdl-card__title-text">${page.headline.main}</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
-                       ${page.snippet}
+                       ${page.snippet ? page.snippet : '<p class="blurry-text"> Knight Foundation lede Google News NPR stupid commenters Walter Cronkite Nate Silver dingbat hyperlocal rubber cement </p>'}
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
                         <a href=${page.web_url} class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -74,7 +81,7 @@ function getDataFromApi(begin_date, end_date, callback){
             </div>`; 
 
         });
-        $('.top-row').html(renderResults);
+        $('.trial').html(renderResults);
      }      
 
 

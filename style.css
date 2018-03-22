@@ -1,15 +1,48 @@
-
-
-.demo-card-square.mdl-card {
-  width: 320px;
-  height: 320px;
+header {
+  width: 50%;
+  margin:50px auto;
+  text-align: center;
+  font-size: 40px;
 }
+
+form {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.label-name {
+  font: #0276FD;
+}
+
+h1 {
+  text-align: center;
+  width: 100%;
+}
+
+.mdl-card {
+  width: 100%;
+  height: inherit;
+}
+
 .demo-card-square > .mdl-card__title {
   color: #fff;
   background:
     url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
 }
 
+.demo-card-square > .mdl-card__supporting-text {
+  min-height: 100px;
+}
+
+.blurry-text { 
+  color: transparent; 
+  text-shadow: 0 0 5px rgba(0,0,0,0.5); 
+  }
+
 .mdl-cell {
-  display: inherit;
+  display: flex;
+}
+
+input {
+  min-height: 33px;
 }
