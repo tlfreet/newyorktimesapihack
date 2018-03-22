@@ -47,6 +47,6 @@ input {
   min-height: 33px;
 }
 
-button {
+.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab {
   background-color: rgb(180, 46, 92);
 }
