@@ -1,8 +1,9 @@
-header {
+header.title {
   width: 50%;
   margin:50px auto;
   text-align: center;
   font-size: 40px;
+  Font-Family: 'Raleway', Sans-Serif;
 }
 
 form {
@@ -14,9 +15,23 @@ form {
   font: #0276FD;
 }
 
+img {
+  width: 100%;
+  height: auto;
+}
+
 h1 {
   text-align: center;
   width: 100%;
+  height: auto;
+  font-size: 30px;
+  font-Family: 'Open Sans', Sans-Serif;
+}
+
+.result-totals {
+  font-Family: 'Open Sans', Sans-Serif;
+  font-Size: 15px;
+  text-align: center;
 }
 
 .mdl-card {
@@ -26,8 +41,7 @@ h1 {
 
 .demo-card-square > .mdl-card__title {
   color: #fff;
-  background:
-    url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+  background: bottom right 15% no-repeat #46B6AC;
 }
 
 .demo-card-square > .mdl-card__supporting-text {

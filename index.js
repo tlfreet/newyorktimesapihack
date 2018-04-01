@@ -11,6 +11,8 @@ let topic = ''
         let date = new Date($('#date').val());
         day = date.getDate() + 1; 
         month = date.getMonth() + 1; 
+        locale = "en-us",
+        textMonth = date.toLocaleString(locale, { month: "long" });
         year = date.getFullYear(); 
         if (day<10){
             day = '0'+day;
@@ -46,7 +48,7 @@ function getDataFromApi(begin_date, end_date, callback){
         callback(result);
     }
     else{
-        $('.trial').html(`<h1>Sorry, there don't seem to be articles for that search! Feel free to try again<h1>`);
+        $('.trial').html(`<h1>Sorry, there don't seem to be articles on ${topic} from ${textMonth} ${day}, ${year}! Feel free to try again.<h1>`);
     }
     }).fail(function(err) {
         throw err;
@@ -57,6 +59,14 @@ function getDataFromApi(begin_date, end_date, callback){
      console.log('handleApiResults ran');
      const allPages = data.response.docs;
      console.log(allPages);
+     const renderTotal = allPages.length;
+        if(allPages.length === 1){
+            $('.result-totals').html(`There is 1 article found for this search.`)
+        }
+        else {
+            $('.result-totals').html(`There are ${allPages.length} articles found for this search.`)
+        }
+     console.log(renderTotal);
      const renderResults = allPages.map(function(page) 
         { 
             return `<div class="mdl-cell mdl-cell--3-col">
@@ -88,9 +98,7 @@ function getDataFromApi(begin_date, end_date, callback){
 
 
 
-//pull out only the headline, snippet, photo, and link
 
 
 
 $(inputSearchTerms());
-//$(getDataFromApi ('19720801', '19720801', handleApiResults));
