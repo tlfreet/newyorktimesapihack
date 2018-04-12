@@ -34,6 +34,11 @@ h1 {
   text-align: center;
 }
 
+.mdl-grid {
+  margin: 0 auto;
+  f
+}
+
 .mdl-card {
   width: 100%;
   height: inherit;

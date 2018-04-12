@@ -1,17 +1,28 @@
 let topic = ''
 
 
- function inputSearchTerms (){
-     $('#topic').on('click', 'li.mdl-menu__item', event => {
+ function inputSearchTerms (){  
+     topicSticks();
+     handleClick();
+     handleEnterKey();
+}
+
+function topicSticks() {
+    console.log('topicSticks ran');
+    $('#topic').on('click', 'li.mdl-menu__item', event => {
         topic = $(event.currentTarget).closest('li').attr('data-val');
         $('#sample3').val(topic);
      })
-     $('#submit-form').submit(function(event) {
+}
+
+function callbackDateInformation(event) {
+        console.log('callbackDateInformation ran');
         event.preventDefault();
+        $('.result-totals').html('');
         let date = new Date($('#date').val());
         day = date.getDate() + 1; 
         month = date.getMonth() + 1; 
-        locale = "en-us",
+        locale = "en-us";
         textMonth = date.toLocaleString(locale, { month: "long" });
         year = date.getFullYear(); 
         if (day<10){
@@ -24,8 +35,22 @@ let topic = ''
        endDate = [year, month, day + 1].join("");
        console.log(beginDate)
         getDataFromApi(beginDate, endDate, handleApiResults);
-         })
+     }
+
+function handleClick (){
+    console.log('handleClick ran');
+   $('#submit-form').submit(event, callbackDateInformation);
 }
+
+function handleEnterKey (){
+    console.log('handleEnterKey');
+    $('#submit-form').keyup(event => {
+        console.log(event);
+        if(event.keyCode == 13){
+            callbackDateInformation(event);
+        }
+    })
+} 
 
 function getDataFromApi(begin_date, end_date, callback){
     //inputSearchTerms();
@@ -33,7 +58,7 @@ function getDataFromApi(begin_date, end_date, callback){
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
         'api-key': "a2df3a93ff5541dd979083ae7243e85c",
-        'fq': `source:("The New York Times") AND news_desk:("${topic}")`,
+        'fq': `news_desk:("${topic}")`,
         'begin_date': begin_date,
         'end_date': end_date,
         'fl': 'print_page,web_url,source,news_desk,headline,pub_date, multimedia, snippet',
@@ -45,11 +70,11 @@ function getDataFromApi(begin_date, end_date, callback){
     }).done(function(result) {
         let doc = result.response.docs
         if(doc.length !== 0){
-        callback(result);
-    }
-    else{
-        $('.trial').html(`<h1>Sorry, there don't seem to be articles on ${topic} from ${textMonth} ${day}, ${year}! Feel free to try again.<h1>`);
-    }
+            callback(result);
+        }
+        else{
+            $('.trial').html(`<h1>Sorry, there don't seem to be articles on ${topic} from ${textMonth} ${day}, ${year}! Feel free to try again.<h1>`);
+        }
     }).fail(function(err) {
         throw err;
         });
@@ -59,17 +84,21 @@ function getDataFromApi(begin_date, end_date, callback){
      console.log('handleApiResults ran');
      const allPages = data.response.docs;
      console.log(allPages);
+     let renderCellClass = '';
      const renderTotal = allPages.length;
         if(allPages.length === 1){
-            $('.result-totals').html(`There is 1 article found for this search.`)
+            $('.result-totals').html(`There is 1 article found for this search.`);
+            renderCellClass = 'mdl-cell--3-col';
         }
         else {
-            $('.result-totals').html(`There are ${allPages.length} articles found for this search.`)
+            $('.result-totals').html(`There are ${allPages.length} articles found for this search.`);
+            renderCellClass = 'mdl-cell--3-col';
         }
      console.log(renderTotal);
      const renderResults = allPages.map(function(page) 
         { 
-            return `<div class="mdl-cell mdl-cell--3-col">
+             console.log(renderCellClass);
+            return `<div class="mdl-cell ${renderCellClass}">
                 <div class="demo-card-square mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title mdl-card--expand">
                         <h2 class="mdl-card__title-text">${page.headline.main}</h2>
